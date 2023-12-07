@@ -1,5 +1,6 @@
 package cm1007;
 
+import cm1007.Tables.Patient_T;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -10,20 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("/getPatients")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class PatientResource {
     @Inject
     PatientRepository patientRepository;
 
     @GET
     @Path("/byFullName")
-    public Uni<List<PatientVM>> getPatientsByName(@QueryParam("name") String name) {
-        return patientRepository.findByFullName(name)
-                .map(list -> list.stream()
-                        .map(patient -> new PatientVM(patient.getId(), patient.getFullName()))
-                        .collect(Collectors.toList())
-                );
+    public Uni<List<Patient_T>> getPatientsByName(@QueryParam("name") String name) {
+        return patientRepository.findByFullName(name);
     }
 
     @GET

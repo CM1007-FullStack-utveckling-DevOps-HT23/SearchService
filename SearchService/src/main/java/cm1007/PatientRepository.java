@@ -2,6 +2,7 @@ package cm1007;
 
 import cm1007.Tables.Patient_T;
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
+import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -9,9 +10,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @ApplicationScoped
-public class PatientRepository implements PanacheRepositoryBase<Patient_T, Integer> {
+public class PatientRepository implements PanacheRepositoryBase<Patient_T, Long> {
+
+    @WithTransaction
     public Uni<List<Patient_T>> findByFullName(String name){
-        return find("fullName LIKE ?1", name).list();
+        return find("fullName LIKE '?1'", name).list();
     }
 
     public Uni<List<Patient_T>> findByConditionType(String conditionType){

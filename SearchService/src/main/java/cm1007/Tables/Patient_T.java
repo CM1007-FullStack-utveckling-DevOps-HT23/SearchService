@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="patient_t")
 public class Patient_T {
     @Id
     @Getter @Setter

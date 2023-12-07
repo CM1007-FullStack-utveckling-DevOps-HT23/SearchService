@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name="note_t")
 public class Note_T {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

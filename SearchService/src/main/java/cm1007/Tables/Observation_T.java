@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name="observation_t")
 public class Observation_T {
 
     @Id

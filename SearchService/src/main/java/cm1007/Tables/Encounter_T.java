@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="encounter_t")
 public class Encounter_T {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
