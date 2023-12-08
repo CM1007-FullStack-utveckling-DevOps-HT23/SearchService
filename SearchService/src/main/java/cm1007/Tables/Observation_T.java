@@ -1,5 +1,6 @@
 package cm1007.Tables;
 
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

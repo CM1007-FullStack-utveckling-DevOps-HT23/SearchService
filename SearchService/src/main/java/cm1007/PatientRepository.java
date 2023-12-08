@@ -10,11 +10,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @ApplicationScoped
-public class PatientRepository implements PanacheRepositoryBase<Patient_T, Long> {
+public class PatientRepository implements PanacheRepositoryBase<Patient_T, Long>{
 
-    @WithTransaction
-    public Uni<List<Patient_T>> findByFullName(String name){
-        return find("fullName LIKE '?1'", name).list();
+    public Uni<List<Patient_T>> findByFullName(String name) {
+        return find("fullName LIKE CONCAT('%', ?1, '%')", name)
+                .list();
     }
 
     public Uni<List<Patient_T>> findByConditionType(String conditionType){
@@ -27,7 +27,7 @@ public class PatientRepository implements PanacheRepositoryBase<Patient_T, Long>
     public Uni<List<Patient_T>> findByEncounterDate(LocalDate encounterDate, Long doctorId){
         return find("SELECT DISTINCT p FROM Patient_T p " +
                 "JOIN p.encounters e " +
-                "WHERE e.encounterDate = ?1" +
+                "WHERE e.encounterDate = ?1 " +
                 "AND e.doctorId = ?2",
                 encounterDate, doctorId)
                 .list();

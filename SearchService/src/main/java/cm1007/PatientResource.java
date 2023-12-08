@@ -17,8 +17,12 @@ public class PatientResource {
 
     @GET
     @Path("/byFullName")
-    public Uni<List<Patient_T>> getPatientsByName(@QueryParam("name") String name) {
-        return patientRepository.findByFullName(name);
+    public Uni<List<PatientVM>> getPatientsByFullName(@QueryParam("fullName") String name) {
+        return patientRepository.findByFullName(name)
+                .map(list -> list.stream()
+                        .map(patient -> new PatientVM(patient.getId(), patient.getFullName()))
+                        .collect(Collectors.toList())
+                );
     }
 
     @GET
