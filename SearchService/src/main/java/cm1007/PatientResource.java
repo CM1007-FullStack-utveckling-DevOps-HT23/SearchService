@@ -1,12 +1,10 @@
 package cm1007;
 
-import cm1007.Tables.Patient_T;
+import cm1007.ViewModels.PatientVM;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,12 +34,11 @@ public class PatientResource {
     }
 
     @GET
-    @Path("/byEncounterDate")
-    public Uni<List<PatientVM>> getPatientsByEncounterDate(
-            @QueryParam("encounterDate") String encounterDateString,
+    @Path("/byDoctorId")
+    public Uni<List<PatientVM>> getPatientsByDoctorFullName(
             @QueryParam("doctorId") Long doctorId){
 
-        return patientRepository.findByEncounterDate(LocalDate.parse(encounterDateString), doctorId)
+        return patientRepository.findByDoctorId(doctorId)
                 .map(list -> list.stream()
                         .map(patient -> new PatientVM(patient.getId(), patient.getFullName()))
                         .collect(Collectors.toList())

@@ -24,12 +24,10 @@ public class PatientRepository implements PanacheRepositoryBase<Patient_T, Long>
                 .list();
     }
 
-    public Uni<List<Patient_T>> findByEncounterDate(LocalDate encounterDate, Long doctorId){
+    public Uni<List<Patient_T>> findByDoctorId(Long doctorId){
         return find("SELECT DISTINCT p FROM Patient_T p " +
-                "JOIN p.encounters e " +
-                "WHERE DATE(e.encounterDate) = ?1 " +
-                "AND e.doctorId = ?2",
-                encounterDate, doctorId)
+                        "JOIN p.encounters e " +
+                        "WHERE e.doctorId = ?1", doctorId)
                 .list();
     }
 }

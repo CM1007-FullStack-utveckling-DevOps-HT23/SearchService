@@ -1,4 +1,4 @@
-package cm1007;
+package cm1007.ViewModels;
 
 import lombok.Getter;
 import lombok.Setter;
