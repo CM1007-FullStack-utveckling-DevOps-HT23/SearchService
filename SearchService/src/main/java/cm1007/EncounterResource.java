@@ -3,6 +3,7 @@ package cm1007;
 import cm1007.Tables.Encounter_T;
 import cm1007.ViewModels.EncounterDetailsVM;
 import cm1007.ViewModels.PatientVM;
+import io.quarkus.security.Authenticated;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -20,10 +21,11 @@ public class EncounterResource {
     EncounterRepository encounterRepository;
 
     @GET
+    @Authenticated
     @Path("/byDate")
     public Uni<List<EncounterDetailsVM>> findByEncounterDate(
             @QueryParam("encounterDate") String encounterDateString,
-            @QueryParam("doctorId") Long doctorId) {
+            @QueryParam("doctorId") String doctorId) {
 
         return encounterRepository.findByEncounterDate(LocalDate.parse(encounterDateString), doctorId)
                 .map(list -> list.stream()
@@ -40,8 +42,9 @@ public class EncounterResource {
     }
 
     @GET
+    @Authenticated
     @Path("/byDoctorId")
-    public Uni<List<EncounterDetailsVM>> findByDoctorId(@QueryParam("doctorId") Long doctorId) {
+    public Uni<List<EncounterDetailsVM>> findByDoctorId(@QueryParam("doctorId") String doctorId) {
         return encounterRepository.findByDoctorId(doctorId)
                 .map(list -> list.stream()
                         .map(encounter -> new EncounterDetailsVM(

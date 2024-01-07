@@ -5,12 +5,12 @@ import lombok.Setter;
 
 public class PatientVM {
     @Getter @Setter
-    public Long patientId;
+    public String patientId;
 
     @Getter @Setter
     public String patientName;
 
-    public PatientVM(Long patientId, String patientName) {
+    public PatientVM(String patientId, String patientName) {
         this.patientId = patientId;
         this.patientName = patientName;
     }

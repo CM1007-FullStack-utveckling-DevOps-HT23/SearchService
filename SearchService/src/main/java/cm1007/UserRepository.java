@@ -9,7 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class UserRepository implements PanacheRepositoryBase<User_T, Long> {
+public class UserRepository implements PanacheRepositoryBase<User_T, String> {
 
     public Uni<List<User_T>> findByFullName(String name) {
         return find("fullName LIKE CONCAT('%', ?1, '%') " +

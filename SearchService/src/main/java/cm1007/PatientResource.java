@@ -1,6 +1,7 @@
 package cm1007;
 
 import cm1007.ViewModels.PatientVM;
+import io.quarkus.security.Authenticated;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -14,6 +15,7 @@ public class PatientResource {
     PatientRepository patientRepository;
 
     @GET
+    @Authenticated
     @Path("/byFullName")
     public Uni<List<PatientVM>> getPatientsByFullName(@QueryParam("fullName") String name) {
         return patientRepository.findByFullName(name)
@@ -24,6 +26,7 @@ public class PatientResource {
     }
 
     @GET
+    @Authenticated
     @Path("/byConditionType")
     public Uni<List<PatientVM>> getPatientsByConditionType(@QueryParam("conditionType") String conditionType) {
         return patientRepository.findByConditionType(conditionType)
@@ -34,9 +37,10 @@ public class PatientResource {
     }
 
     @GET
+    @Authenticated
     @Path("/byDoctorId")
     public Uni<List<PatientVM>> getPatientsByDoctorFullName(
-            @QueryParam("doctorId") Long doctorId){
+            @QueryParam("doctorId") String doctorId){
 
         return patientRepository.findByDoctorId(doctorId)
                 .map(list -> list.stream()

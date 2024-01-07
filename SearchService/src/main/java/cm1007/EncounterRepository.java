@@ -12,7 +12,7 @@ import java.util.List;
 
 @ApplicationScoped
 public class EncounterRepository implements PanacheRepositoryBase<Encounter_T, Long> {
-    public Uni<List<Encounter_T>> findByEncounterDate(LocalDate encounterDate, Long doctorId){
+    public Uni<List<Encounter_T>> findByEncounterDate(LocalDate encounterDate, String doctorId){
         return find("SELECT e FROM Encounter_T e " +
                         "JOIN FETCH e.patient p " +
                         "WHERE DATE(e.encounterDate) = ?1 " +
@@ -21,7 +21,7 @@ public class EncounterRepository implements PanacheRepositoryBase<Encounter_T, L
                 .list();
     }
 
-    public Uni<List<Encounter_T>>findByDoctorId(Long doctorId){
+    public Uni<List<Encounter_T>>findByDoctorId(String doctorId){
         return find("SELECT e FROM Encounter_T e " +
                         "JOIN FETCH e.patient p " +
                         "WHERE e.doctorId = ?1 " +

@@ -81,6 +81,12 @@ FROM registry.access.redhat.com/ubi8/openjdk-17:1.18
 
 ENV LANGUAGE='en_US:en'
 
+USER root
+COPY keycloak.crt /tmp/keycloak.crt
+RUN \
+    cd $JAVA_HOME/lib/security \
+    && keytool -keystore cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias keycloakcert -file /tmp/keycloak.crt \
+    && chown 185:185 cacerts
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
 COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/

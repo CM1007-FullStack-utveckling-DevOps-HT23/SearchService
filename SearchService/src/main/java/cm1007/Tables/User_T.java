@@ -9,16 +9,8 @@ import lombok.Setter;
 @Table(name="user_t")
 public class User_T {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
-    private Long id;
-
-    @Getter @Setter
-    @Column(name = "u_name")
-    private String uName;
-
-    @Getter @Setter
-    private String password;
+    private String id;
 
     @Enumerated(EnumType.STRING)
     @Getter @Setter

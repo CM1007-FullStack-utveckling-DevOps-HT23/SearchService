@@ -19,7 +19,7 @@ public class Encounter_T {
 
     @Column(name = "doctor_id")
     @Getter @Setter
-    private Long doctorId;
+    private String doctorId;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
